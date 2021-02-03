@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=utf-8>
+    <meta name=viewport content="width=device-width,initial-scale=1">
+    <title>jQuery_ajax</title>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+</head>
+
+<style>
+    body {
+        padding: 5% 10%;
+    }
+
+    table, tr {
+        width: 100%;
+    }
+
+    input, textarea {
+        width: 800px;
+        line-height: 1.5rem;
+    }
+</style>
+
+<body>
+
+<table>
+    <tr>
+        <td>请求地址：</td>
+        <td><input id="urlOfGet"/></td>
+    </tr>
+    <tr>
+        <td>请求头：</td>
+        <td><textarea id="headersOfGet" placeholder="多个请求头用分号分隔"></textarea></td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <button onclick="sendGet()">发送get请求</button>
+        </td>
+    </tr>
+</table>
+<hr style="margin: 50px 0;border-color: white"></hr>
+<table>
+    <tr>
+        <td>请求地址：</td>
+        <td><input id="urlOfPost"/></td>
+    </tr>
+    <tr>
+        <td>请求头：</td>
+        <td><textarea id="headersOfPost" placeholder="多个请求头用分号分隔"></textarea></td>
+    </tr>
+    <tr>
+        <td>请求体：</td>
+        <td><textarea rows="3" id="bodyOfPost"></textarea></td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <button onclick="sendPost()">发送post请求</button>
+        </td>
+    </tr>
+</table>
+
+<script type="text/javascript">
+    $(function () {
+
+    });
+
+    /**
+     * 发送get请求
+     */
+    function sendGet() {
+        let url = $('#urlOfGet').val();
+        if (!url) {
+            alert("请填写请求地址");
+            return false;
+        }
+        let headerStr = $('#headersOfGet').val();
+        let headers = {};
+        if (headerStr) {
+            let headersArr = headerStr.split(";");
+            for (let i = 0; i < headersArr.length; i++) {
+                let headersArrElement = headersArr[i];
+                let header = headersArrElement.split(":");
+                headers[header[0]] = header[1];
+            }
+        }
+        get(url, headers, function (data) {
+            alert("get=" + data);
+        })
+    }
+
+    /**
+     * 发送post请求
+     */
+    function sendPost() {
+        let url = $('#urlOfPost').val();
+        if (!url) {
+            alert("请填写请求地址");
+            return false;
+        }
+        let headerStr = $('#headersOfPost').val();
+        let headers = {};
+        if (headerStr) {
+            let headersArr = headerStr.split(";");
+            for (let i = 0; i < headersArr.length; i++) {
+                let headersArrElement = headersArr[i];
+                let header = headersArrElement.split(":");
+                headers[header[0]] = header[1];
+            }
+        }
+        let body = $('#bodyOfPost').val();
+        let parse = JSON.parse(body);
+        post(url, headers, parse, function (data) {
+            alert("get=" + data);
+        })
+    }
+
+    /**
+     * get请求
+     * @param url 请求地址
+     * @param headers 请求头
+     * @param callback 回调函数
+     */
+    let get = (url, headers, callback) => {
+        $.ajax(
+            {
+                url: url,
+                type: 'get',
+                headers: headers,
+                success: function (data) {
+                    callback && callback(data);
+                },
+                error: function (data) {
+                    console.error(data);
+                    alert("系统异常")
+                }
+            }
+        );
+    };
+
+    /**
+     * post请求
+     * @param url 请求地址
+     * @param headers 请求头
+     * @param body 请求体
+     * @param callback 回调函数
+     */
+    let post = (url, headers, body, callback) => {
+        $.ajax(
+            {
+                url: url,
+                type: 'post',
+                contentType: 'application/json;charset=utf8',
+                headers: headers,
+                data: JSON.stringify(body),
+                success: function (data) {
+                    callback && callback(data);
+                },
+                error: function (data) {
+                    console.error(data);
+                    alert("系统异常")
+                }
+            }
+        );
+    };
+
+</script>
+</body>
+
+</html>
