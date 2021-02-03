@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=utf-8>
+    <meta name=viewport content="width=device-width,initial-scale=1">
+    <title>内网门户</title>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+</head>
+
+<style>
+
+    body {
+        margin: 0;
+    }
+
+    header {
+        height: 60px;
+        width: 100%;
+        background-color: dimgray;
+        text-align: center;
+    }
+
+    header ul {
+        list-style: none;
+        margin: 0;
+        height: 100%;
+    }
+
+    header ul li {
+        display: inline-block;
+        color: lightgrey;
+        height: 100%;
+        padding: 0 20px;
+        line-height: 60px;
+        cursor: pointer;
+    }
+
+    li.active {
+        color: white;
+        font-size: 1.5rem;
+    }
+
+    div.center {
+        width: 100%;
+        margin: 10px auto;
+    }
+
+    div.center > div {
+        width: 60%;
+        padding-left: 25%;
+    }
+
+    .menu_item {
+        width: 300px;
+        height: 150px;
+        display: inline-block;
+        border: 1px solid #dcdee2;
+        margin: 10px;
+        text-align: center;
+    }
+
+    .menu_item:hover {
+        box-shadow: darkgrey 0 0 10px 5px;
+    }
+
+    .menu_item p {
+        line-height: 30px;
+    }
+
+    .menu_item p:nth-child(1) {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #337ab7;
+    }
+
+    footer {
+        margin-top: 50px;
+    }
+
+    footer > p {
+        text-align: center;
+        color: grey;
+        font-size: 0.8rem;
+    }
+
+</style>
+
+<body>
+
+<header>
+    <ul>
+        <li id="tool">技术工具</li>
+        <li id="dev">开发环境</li>
+        <li id="test">测试环境</li>
+        <li id="preProd">预发布环境</li>
+    </ul>
+</header>
+<div class="center">
+    <div id="toolDiv"></div>
+    <div id="devDiv"></div>
+    <div id="testDiv"></div>
+    <div id="preProdDiv"></div>
+</div>
+<footer>
+    <p>©北京高阳捷迅信息技术有限公司武汉分公司</p>
+    <p>©2021 By Mr.Huang</p>
+    <p>客户第一、诚信、合作、创新</p>
+</footer>
+
+<script type="text/javascript">
+
+    $(function () {
+        /**
+         * 头部选项卡点击事件
+         */
+        $("ul li").click(function () {
+            let liArr = $("ul li");
+            for (let i = 0; i < liArr.length; i++) {
+                $(liArr[i]).removeClass("active");
+            }
+            $(this).addClass("active");
+            showCenterDiv($(this).attr("id") + "Div")
+        });
+        /**
+         * 默认展示第一个选项卡内容
+         */
+        showCenterDiv("toolDiv");
+        /**
+         * 填充选项卡对应的内容
+         */
+        fillCenterDiv("toolDiv", toolJson);
+        fillCenterDiv("devDiv", devJson);
+        fillCenterDiv("testDiv", testJson);
+        fillCenterDiv("preProdDiv", preProdJson);
+
+        // 点击页面特效
+        initClickPageWithSpecialEffect();
+
+    });
+
+    /**
+     * 填充选卡的内容
+     */
+    function fillCenterDiv(id, itemJson) {
+        for (let i = 0; i < itemJson.length; i++) {
+            let item = itemJson[i];
+            let itemId = id + "_item_" + i;
+            let html = "<div id='" + itemId + "' class='menu_item'><p>" + item.name + "</p><p>" + item.desc + "</p></div>";
+            $("#" + id).append(html);
+            $("#" + itemId).click(function () {
+                window.open(item.url);
+            });
+        }
+    }
+
+    /**
+     * 展示中间的div
+     * @param id 需要展示的div的id
+     */
+    function showCenterDiv(id) {
+        let centerDivArr = $(".center > div");
+        for (let i = 0; i < centerDivArr.length; i++) {
+            let divObj = $(centerDivArr[i]);
+            if (id === divObj.attr("id")) {
+                divObj.css("display", "block");
+            } else {
+                divObj.css("display", "none");
+            }
+        }
+    }
+
+    // 技术工具
+    let toolJson = [
+        {
+            "name": "DevOps",
+            "desc": "多应用云平台",
+            "url": "http://api.devops.gyjxwh.com/oauth/choerodon/login"
+        },
+        {
+            "name": "Gitlab",
+            "desc": "代码仓库",
+            "url": "https://gitlab.19ego.cn/users/sign_in"
+        },
+        {
+            "name": "Gitlab",
+            "desc": "代码仓库1",
+            "url": "https://gitlab.19ego.cn/users/sign_in"
+        },
+        {
+            "name": "Gitlab",
+            "desc": "代码仓库2",
+            "url": "https://gitlab.19ego.cn/users/sign_in"
+        },
+        {
+            "name": "Gitlab",
+            "desc": "代码仓库3",
+            "url": "https://gitlab.19ego.cn/users/sign_in"
+        }
+    ];
+
+    // 开发环境
+    let devJson = [
+        {
+            "name": "K8S",
+            "desc": "K8S控制台",
+            "url": "http://dev-k8s.gyjxwh.com/#!/overview?namespace=default"
+        },
+        {
+            "name": "Harbor",
+            "desc": "镜像仓库",
+            "url": "https://repo-dev.gyjxwh.com/harbor/sign-in?redirect_url=%2Fharbor%2Fprojects"
+        },
+        {
+            "name": "Gitlab",
+            "desc": "代码仓库1",
+            "url": "https://gitlab.19ego.cn/users/sign_in"
+        },
+        {
+            "name": "Gitlab",
+            "desc": "代码仓库2",
+            "url": "https://gitlab.19ego.cn/users/sign_in"
+        },
+        {
+            "name": "Gitlab",
+            "desc": "代码仓库3",
+            "url": "https://gitlab.19ego.cn/users/sign_in"
+        }
+    ];
+
+    // 测试环境
+    let testJson = [
+        {
+            "name": "test",
+            "desc": "多应用云平台",
+            "url": "http://api.devops.gyjxwh.com/oauth/choerodon/login"
+        },
+        {
+            "name": "Gitlab",
+            "desc": "代码仓库",
+            "url": "https://gitlab.19ego.cn/users/sign_in"
+        },
+        {
+            "name": "Gitlab",
+            "desc": "代码仓库1",
+            "url": "https://gitlab.19ego.cn/users/sign_in"
+        },
+        {
+            "name": "Gitlab",
+            "desc": "代码仓库2",
+            "url": "https://gitlab.19ego.cn/users/sign_in"
+        },
+        {
+            "name": "Gitlab",
+            "desc": "代码仓库3",
+            "url": "https://gitlab.19ego.cn/users/sign_in"
+        }
+    ];
+
+    // 预发布环境
+    let preProdJson = [
+        {
+            "name": "preProd",
+            "desc": "多应用云平台",
+            "url": "http://api.devops.gyjxwh.com/oauth/choerodon/login"
+        },
+        {
+            "name": "Gitlab",
+            "desc": "代码仓库",
+            "url": "https://gitlab.19ego.cn/users/sign_in"
+        },
+        {
+            "name": "Gitlab",
+            "desc": "代码仓库1",
+            "url": "https://gitlab.19ego.cn/users/sign_in"
+        },
+        {
+            "name": "Gitlab",
+            "desc": "代码仓库2",
+            "url": "https://gitlab.19ego.cn/users/sign_in"
+        },
+        {
+            "name": "Gitlab",
+            "desc": "代码仓库3",
+            "url": "https://gitlab.19ego.cn/users/sign_in"
+        }
+    ];
+
+    /**
+     * 点击特效
+     */
+    function initClickPageWithSpecialEffect() {
+
+        //给页面创建点击事件
+        $("html").click(function (e) {
+
+            //创建颜色库
+            const beforeColorArr = ['00', '11', '22', '33', '44', '55', '66', '77', '88', '99',
+                'aa', 'bb', 'cc', 'dd', 'ee', 'ff'];
+            const centerColorArr = ['00', '11', '22', '33', '44', '55', '66', '77', '88', '99',
+                'aa', 'bb', 'cc', 'dd', 'ee', 'ff'];
+            const afterColorArr = ['00', '11', '22', '33', '44', '55', '66', '77', '88', '99',
+                'aa', 'bb', 'cc', 'dd', 'ee', 'ff'];
+
+            //从颜色库选取一种颜色;当然这是数组的方式;随机性
+            let beforeColorIndex = Math.floor(Math.random() * beforeColorArr.length);
+            let centerColorIndex = Math.floor(Math.random() * centerColorArr.length);
+            let afterColorIndex = Math.floor(Math.random() * afterColorArr.length);
+
+            let alertTextArr = ["客户第一", "诚信", "合作", "创新", "厉害了"];
+            let alertTextIndex = Math.floor(Math.random() * alertTextArr.length);
+
+            //创建元素; 创建的元素是span元素,这个元素的内容是alertTextArr
+            let clickNumSpan = $("<span>").text(alertTextArr[alertTextIndex]);
+
+            //在页面上添加span元素
+            $("html").append(clickNumSpan);
+
+            //获取鼠标点击坐标
+            let x = e.pageX;
+            let y = e.pageY;
+
+            //给span元素添加css样式
+            clickNumSpan.css({
+                "z-index": 999, //设置或获取定位对象的堆叠次序(z-index):999
+                "top": y - 20, //上
+                "left": x, //左
+                "position": "absolute", //定位:绝对定位
+                "color": "#" + beforeColorArr[beforeColorIndex] + centerColorArr[centerColorIndex] + afterColorArr[afterColorIndex], //颜色
+                "user-select": "none", //使文字不被选中
+            });
+
+            //动画
+            clickNumSpan.animate({
+                    "top": y - 60, //上
+                    "opacity": 0 //透明度(opacity):0
+                }, 1000, //调节动画速度
+                function () { //功能函数
+                    clickNumSpan.remove(); //删除本身
+                }
+            );
+
+        })
+    }
+
+</script>
+</body>
+
+</html>
