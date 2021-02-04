@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=utf-8>
+    <meta name=viewport content="width=device-width,initial-scale=1">
+    <title>mockjs</title>
+
+    <script src="http://mockjs.com/dist/mock.js"></script>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+
+</head>
+
+<style type="text/css">
+    th,
+    td {
+        padding: 1px 50px;
+    }
+</style>
+
+<body>
+<table cellspacing="0" cellpadding="0" border="1px solid gray">
+    <thead>
+    <th>测试项</th>
+    <th>结果</th>
+    </thead>
+    <tr>
+        <td>随机字符串</td>
+        <td id="t1"></td>
+    </tr>
+    <tr>
+        <td>随机的布尔值</td>
+        <td id="t2"></td>
+    </tr>
+    <tr>
+        <td>随机的自然数（大于等于 0 的整数）</td>
+        <td id="t3"></td>
+    </tr>
+    <tr>
+        <td>整型数组</td>
+        <td id="t4"></td>
+    </tr>
+    <tr>
+        <td>随机的日期字符串</td>
+        <td id="t5"></td>
+    </tr>
+    <tr>
+        <td>随机的日期和时间字符串</td>
+        <td id="t6"></td>
+    </tr>
+    <tr>
+        <td>当前的日期和时间字符串</td>
+        <td id="t7"></td>
+    </tr>
+</table>
+
+<script>
+    $(function () {
+        let Random = Mock.Random;
+        $("#t1").text(Random.string(3, 10));
+        $("#t2").text(Random.boolean());
+        $("#t3").text(Random.natural(1, 100));
+        $("#t4").text(Random.range(3, 7));
+        $("#t5").text(Random.date('yyyy-MM-dd'));
+        $("#t6").text(Random.datetime('yyyy-MM-dd HH:mm:ss'));
+        $("#t7").text(Random.now('yyyy-MM-dd HH:mm:ss'));
+    })
+</script>
+</body>
+
+</html>

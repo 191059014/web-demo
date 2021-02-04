@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset=utf-8>
+    <meta name=viewport content="width=device-width,initial-scale=1">
+    <title>vue_jquery_bootstrap</title>
+
+    <!-- Bootstrap 核心 CSS 文件 -->
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Vue.js -->
+    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+    <!-- jQuery文件 在bootstrap.min.js之前引入 -->
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <!-- Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+
+<div id="app" class="container">
+    <div class="jumbotron">
+        <h1>{{h1Text}}</h1>
+        <p>{{pText}}</p>
+    </div>
+    <input v-model="username" placeholder="用户名">
+    <button @click="sayHello">按钮</button>
+</div>
+
+<script>
+
+    $(function () {
+
+        console.info(123);
+
+    });
+
+    new Vue({
+        el: '#app',
+        data: {
+            h1Text: "这里是h1标签",
+            pText: "这里是p标签",
+            username: ''
+        },
+        methods: {
+            sayHello: function () {
+                alert(this.username);
+            }
+        }
+    })
+
+</script>
+
+</body>
+</html>
