@@ -79,7 +79,7 @@
     }
 
     footer {
-        margin-top: 50px;
+        width: 100%;
     }
 
     footer > p {
@@ -150,6 +150,7 @@
 <script type="text/javascript">
 
     $(function () {
+
         /**
          * 头部选项卡点击事件
          */
@@ -159,7 +160,9 @@
                 $(liArr[i]).removeClass("active");
             }
             $(this).addClass("active");
-            showCenterDiv($(this).attr("id") + "Div")
+            showCenterDiv($(this).attr("id") + "Div");
+            // 改变底部位置
+            initFooterPosition();
         });
         /**
          * 默认展示第一个选项卡内容
@@ -176,7 +179,31 @@
         // 点击页面特效
         initClickPageWithSpecialEffect();
 
+        // 初始化底部位置
+        initFooterPosition();
+
     });
+
+    /**
+     * 初始化底部位置
+     */
+    function initFooterPosition() {
+        let pageHeight = $(document).height();//整个网页的高度
+        let windowHeight = $(window).height();//浏览器可视窗口的高度
+        if (windowHeight >= pageHeight) {
+            $("footer").css({
+                "position": "absolute",
+                "bottom": "10px"
+            });
+        } else {
+            $("footer").css({
+                "position": "static",
+                "margin-top": "30px",
+                "bottom": "0",
+                "padding-bottom": "10px"
+            });
+        }
+    }
 
     /**
      * 填充选卡的内容
@@ -244,6 +271,66 @@
             "name": "K8S",
             "desc": "K8S控制台",
             "url": "http://dev-k8s.gyjxwh.com/#!/overview?namespace=default"
+        },
+        {
+            "name": "Harbor",
+            "desc": "镜像仓库",
+            "url": "https://repo-dev.gyjxwh.com/harbor/sign-in?redirect_url=%2Fharbor%2Fprojects"
+        },
+        {
+            "name": "Gitlab",
+            "desc": "代码仓库1",
+            "url": "https://gitlab.19ego.cn/users/sign_in"
+        },
+        {
+            "name": "Gitlab",
+            "desc": "代码仓库2",
+            "url": "https://gitlab.19ego.cn/users/sign_in"
+        },
+        {
+            "name": "Gitlab",
+            "desc": "代码仓库3",
+            "url": "https://gitlab.19ego.cn/users/sign_in"
+        },
+        {
+            "name": "Harbor",
+            "desc": "镜像仓库",
+            "url": "https://repo-dev.gyjxwh.com/harbor/sign-in?redirect_url=%2Fharbor%2Fprojects"
+        },
+        {
+            "name": "Gitlab",
+            "desc": "代码仓库1",
+            "url": "https://gitlab.19ego.cn/users/sign_in"
+        },
+        {
+            "name": "Gitlab",
+            "desc": "代码仓库2",
+            "url": "https://gitlab.19ego.cn/users/sign_in"
+        },
+        {
+            "name": "Gitlab",
+            "desc": "代码仓库3",
+            "url": "https://gitlab.19ego.cn/users/sign_in"
+        },
+        {
+            "name": "Harbor",
+            "desc": "镜像仓库",
+            "url": "https://repo-dev.gyjxwh.com/harbor/sign-in?redirect_url=%2Fharbor%2Fprojects"
+        },
+        {
+            "name": "Gitlab",
+            "desc": "代码仓库1",
+            "url": "https://gitlab.19ego.cn/users/sign_in"
+        },
+        {
+            "name": "Gitlab",
+            "desc": "代码仓库2",
+            "url": "https://gitlab.19ego.cn/users/sign_in"
+        },
+        {
+            "name": "Gitlab",
+            "desc": "代码仓库3",
+            "url": "https://gitlab.19ego.cn/users/sign_in"
         },
         {
             "name": "Harbor",
