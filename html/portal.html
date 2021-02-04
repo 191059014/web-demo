@@ -43,17 +43,17 @@
     }
 
     div.center {
-        width: 60%;
+        width: 75%;
         margin: 10px auto;
     }
 
     div.center > div {
-        width: 85%;
+        width: 90%;
         margin: 0 auto;
     }
 
     .menu_item {
-        width: 30%;
+        width: 22%;
         display: inline-block;
         border: 1px solid #dcdee2;
         margin: 10px;
@@ -129,13 +129,15 @@
 
 <header>
     <ul>
-        <li id="tool" class="active">技术工具</li>
+        <li id="dailyWork" class="active">日常工作</li>
+        <li id="tool">技术工具</li>
         <li id="dev">开发环境</li>
         <li id="test">测试环境</li>
         <li id="preProd">预发布环境</li>
     </ul>
 </header>
 <div class="center">
+    <div id="dailyWorkDiv"></div>
     <div id="toolDiv"></div>
     <div id="devDiv"></div>
     <div id="testDiv"></div>
@@ -171,6 +173,7 @@
         /**
          * 填充选项卡对应的内容
          */
+        fillCenterDiv("dailyWorkDiv", dailyWorkJson);
         fillCenterDiv("toolDiv", toolJson);
         fillCenterDiv("devDiv", devJson);
         fillCenterDiv("testDiv", testJson);
@@ -188,9 +191,10 @@
      * 初始化底部位置
      */
     function initFooterPosition() {
-        let pageHeight = $(document).height();//整个网页的高度
+        let htmlHeight = $("html").height();//整个网页的高度
         let windowHeight = $(window).height();//浏览器可视窗口的高度
-        if (windowHeight >= pageHeight) {
+        let footerHeight = $("footer").height();//底部footer的高度
+        if (windowHeight > (htmlHeight + footerHeight)) {
             $("footer").css({
                 "position": "absolute",
                 "bottom": "10px"
@@ -235,6 +239,25 @@
             }
         }
     }
+
+    // 日常工作
+    let dailyWorkJson = [
+        {
+            "name": "DevOps",
+            "desc": "多应用云平台",
+            "url": "http://api.devops.gyjxwh.com/oauth/choerodon/login"
+        },
+        {
+            "name": "Gitlab",
+            "desc": "代码仓库",
+            "url": "https://gitlab.19ego.cn/users/sign_in"
+        },
+        {
+            "name": "Gitlab",
+            "desc": "代码仓库1",
+            "url": "https://gitlab.19ego.cn/users/sign_in"
+        }
+    ];
 
     // 技术工具
     let toolJson = [
@@ -345,6 +368,11 @@
         {
             "name": "Gitlab",
             "desc": "代码仓库2",
+            "url": "https://gitlab.19ego.cn/users/sign_in"
+        },
+        {
+            "name": "Gitlab",
+            "desc": "代码仓库3",
             "url": "https://gitlab.19ego.cn/users/sign_in"
         },
         {
