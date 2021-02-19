@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset=utf-8>
+    <meta name=viewport content="width=device-width,initial-scale=1">
+    <title>自定义提示框</title>
+
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+
+</head>
+<body>
+
+<button onclick="Alert1('系统异常，请稍后再试')">提示1</button>
+<button onclick="Alert2(456)">提示2</button>
+
+<script>
+
+    //弹出提示效果
+    window.Alert1 = function (message, callback) {
+        // 先删除提示框，再添加提示框
+        $(".hb_tip").remove();
+        let msgTip = $('<span class="hb_tip">' + message + '</span>');
+        $("body").append(msgTip);
+        //定位居中显示
+        let leftW = (document.body.clientWidth - msgTip.width()) / 2;
+        // 设置样式
+        msgTip.css({
+            "top": "20%",
+            "left": leftW + "px",
+            "position": "absolute",
+            "padding": "10px 15px",
+            "background-color": "#535353",
+            "color": "white",
+            "border-radius": "4px",
+            "font-size": "0.8rem",
+        });
+        //淡出效果并执行回调
+        msgTip.animate({
+            opacity: 0
+        }, 3000, function () {
+            msgTip.remove();
+            callback && callback();
+        });
+    };
+
+    //弹出提示效果
+    window.Alert2 = (message, callback) => {
+        // 先删除提示框，再添加提示框
+        $(".hb_tip").remove();
+        let msgTip = $('<span class="hb_tip">' + message + '</span>');
+        $("body").append(msgTip);
+        // 设置样式
+        msgTip.css({
+            "top": "0",
+            "left": "0",
+            "text-align": "center",
+            "background-color": "yellow",
+            "position": "absolute",
+            "padding": "10px 0",
+            "font-size": "larger",
+            "font-weight": "bolder"
+        });
+        //淡出效果并执行回调
+        msgTip.animate({
+            "right": "0",
+        }, 500, function () {
+            msgTip.animate({
+                opacity: 0,
+            }, 2000, function () {
+                msgTip.remove();
+                callback && callback();
+            });
+        });
+    };
+
+</script>
+
+</body>
+</html>
